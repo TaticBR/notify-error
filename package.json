@@ -1,0 +1,37 @@
+{
+  "name": "nh-utils",
+  "author": "Nata House",
+  "version": "0.1.5",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/nh-utils.esm.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepublish": "yarn build"
+  },
+  "devDependencies": {
+    "@types/node": "^13.9.5",
+    "@typescript-eslint/eslint-plugin": "^2.24.0",
+    "@typescript-eslint/parser": "^2.24.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-import-resolver-typescript": "^2.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "prettier": "^2.0.2",
+    "tsdx": "^0.13.1",
+    "tslib": "^1.11.1",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "@nestjs/common": "^8.4.1",
+    "@nestjs/mongoose": "^9.0.3",
+    "@nestjs/schedule": "^1.0.2",
+    "mongoose": "^6.2.7"
+  }
+}
