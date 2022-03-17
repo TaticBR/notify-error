@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { ProcessError } from 'model/processError.entity';
-import { ProcessErrorMongoRepository } from 'repository/processError-mongo.repository';
+import { ProcessError } from '../model/processError.entity';
+import { ProcessErrorMongoRepository } from '../repository/processError-mongo.repository';
 
 @Injectable()
 export class SaveError {

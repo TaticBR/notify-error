@@ -1,6 +1,6 @@
 import { Prop, Schema } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { SchemaFactoryWithMethods } from 'utils/schema-factory-with-methods';
+import { SchemaFactoryWithMethods } from '../utils/schema-factory-with-methods';
 
 export const processErrorCollectionName = 'processError';
 

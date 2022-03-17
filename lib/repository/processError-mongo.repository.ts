@@ -1,6 +1,6 @@
 import { Injectable, Provider } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { ProcessError, ProcessErrorDocument } from 'model/processError.entity';
+import { ProcessError, ProcessErrorDocument } from '../model/processError.entity';
 import { Model } from 'mongoose';
 
 @Injectable()

@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { EventEmitterPort } from 'ports/eventEmitter.port';
-import { ProcessErrorMongoRepository } from 'repository/processError-mongo.repository';
+import { EventEmitterPort } from '../ports/eventEmitter.port';
+import { ProcessErrorMongoRepository } from '../repository/processError-mongo.repository';
 
 @Injectable()
 export class NotifyError {

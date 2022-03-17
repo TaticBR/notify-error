@@ -3,16 +3,18 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { SaveError } from './services/saveError';
 import { NotifyError } from './services/cron';
 import { NotifyErrorOptions } from './index';
-import { ProcessErrorMongoRepository } from 'repository/processError-mongo.repository';
+import { ProcessErrorMongoRepository } from './repository/processError-mongo.repository';
 
-@Module({
-  providers: [NotifyError, SaveError, ProcessErrorMongoRepository],
-})
+@Module({})
 export class NotifyErrorModule {
-  static forRoot(options?: NotifyErrorOptions): DynamicModule {
-    const providers = [options.eventEmmiterProvider]
+  static forRoot(options?: NotifyErrorOptions): any {
+    const providers = [
+      options.eventEmmiterProvider,
+      NotifyError,
+      SaveError,
+      ProcessErrorMongoRepository,
+    ];
     return {
-      global: true,
       module: NotifyErrorModule,
       imports: [MongooseModule.forRoot(options.mongoUrl)],
       providers: providers,
