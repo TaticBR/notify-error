@@ -8,7 +8,8 @@ export class NotifyError {
   private readonly logger = new Logger(NotifyError.name);
 
   constructor(private processErrorRepository: ProcessErrorMongoRepository,
-    private eventEmitter: EventEmitterPort) {}
+    // private eventEmitter: EventEmitterPort
+    ) {}
 
   @Cron(CronExpression.EVERY_30_SECONDS)
   async notify(): Promise<void> {
@@ -33,11 +34,11 @@ export class NotifyError {
     this.logger.log('Sending notification');
     try {
       // TODO: get topic dinamically
-      await this.eventEmitter.request("NotifyLoadPimDelayTopic", {
-      // TODO: get errortype dinamically
-        errorType: "Error",
-        errors,
-      });
+      // await this.eventEmitter.request("NotifyLoadPimDelayTopic", {
+      // // TODO: get errortype dinamically
+      //   errorType: "Error",
+      //   errors,
+      // });
 
       await this.processErrorRepository.updateAsSent(pendingErrors);
       this.logger.log('Notification sent');
