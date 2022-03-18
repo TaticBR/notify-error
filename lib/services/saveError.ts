@@ -21,7 +21,6 @@ export class SaveNotifyError {
       await this.processErrorRepository.save(processError);
       this.logger.log('Process Error Saving');
     } catch (error) {
-      console.log(error)
       this.logger.error(`Error while saving Process Error ${error.message}`);
     }
   }
