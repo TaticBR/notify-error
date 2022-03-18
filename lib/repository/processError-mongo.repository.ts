@@ -12,9 +12,10 @@ export class ProcessErrorMongoRepository
   ) {}
 
   async findPending(): Promise<ProcessErrorDocument[]> {
-    return this.processErrorModel.find({
+    const result = await this.processErrorModel.find({
       notificationSent: false,
     });
+    return result;
   }
 
   async save(processError: ProcessError): Promise<void> {

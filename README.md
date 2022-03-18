@@ -9,12 +9,64 @@ or
 yarn add notify-error
 ```
 
-# Functions
+# How to use
 
-## example
+## Implementing on your application
 
-Example text
+First, import `NotifyErrorModule` and imports it in your module, don't forget to provide your Event Emitter.
 
-```javascript
-examplejs
+Example:
+```typescript
+import { NotifyErrorModule } from "notify-error";
+
+@Module({
+  imports: [
+    NotifyErrorModule.forRoot({
+      eventEmitterAdapter: EventEmitterAdapter,
+    }),
+  ],
+  providers: [EventEmitterProvider],
+})
+export class PimModule {}
 ```
+
+Event Emitter abstract class:
+```typescript
+export abstract class EventEmitterPort {
+  request: (topic: string, payload: unknown) => Promise<void>;
+}
+```
+
+## Saving error to notify
+
+To save an error, you must import `SaveNotifyError` class, create it instance on your service and use like the following example:
+
+```typescript
+import { Injectable } from "@nestjs/common";
+import { SaveNotifyError } from "notify-error";
+
+@Injectable()
+export class ScheduleProductInformationSyncService {
+  constructor(
+    private readonly saveError: SaveNotifyError
+  ) {}
+
+  private async execute() {
+    try {
+      // execution
+    } catch (error) {
+      this.saveError.save(error, "pim");
+    }
+  }
+}
+```
+
+# Configuration
+
+You can configure this module by setting some environemnt variables
+
+| Environment Variables | Utility | Default |
+|--|:--:|:--:|
+| VERIFY_ERROR_SCHEDULE_CRON |  Defines a cron expression to define at what delay the error submit task runner will run. | every one hour |
+| PROCESS_ERROR_COLLECTION_NAME | Defines the mongo collection name to save process errors | processError |
+| EVENT_EMITTER_TOPIC | Defines the name of the topic that will be sent to the event emitter | NotifyLoadPimDelayTopic |

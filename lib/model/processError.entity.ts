@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-export const processErrorCollectionName = 'processError';
+export const processErrorCollectionName = process.env.PROCESS_ERROR_COLLECTION_NAME || 'processError';
 
 @Schema({ collection: processErrorCollectionName })
 export class ProcessError {
