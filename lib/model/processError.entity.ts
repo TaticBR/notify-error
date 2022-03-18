@@ -1,19 +1,24 @@
-import { Prop, Schema } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { SchemaFactoryWithMethods } from '../utils/schema-factory-with-methods';
 
 export const processErrorCollectionName = 'processError';
 
 @Schema({ collection: processErrorCollectionName })
 export class ProcessError {
-  constructor(error?: string) {
-    if (error) {
-      this.error = error;
+  constructor(error: string, errorType?: string) {
+    if(errorType) {
+      this.errorType = errorType;
     }
+
+    this.error = error;
     this.notificationSent = false;
   }
+  
   @Prop()
   error: string;
+
+  @Prop()
+  errorType?: string;
 
   @Prop()
   notificationSent?: boolean;
@@ -22,4 +27,4 @@ export class ProcessError {
 export type ProcessErrorDocument = ProcessError & Document;
 
 export const ProcessErrorSchema =
-  SchemaFactoryWithMethods.createForClass(ProcessError);
+SchemaFactory.createForClass(ProcessError);

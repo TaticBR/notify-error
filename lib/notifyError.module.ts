@@ -1,9 +1,11 @@
 import { Module, DynamicModule } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { SaveError } from './services/saveError';
+import { SaveNotifyError } from './services/saveError';
 import { NotifyError } from './services/cron';
 import { NotifyErrorOptions } from './index';
-import { RepositoryModule } from './repository/repository.module';
+import { ProcessErrorMongoRepository } from './repository/processError-mongo.repository';
+import { ProcessError, ProcessErrorSchema } from './model/processError.entity';
+import { EventEmitterPort } from './ports/eventEmitter.port';
 
 @Module({})
 export class NotifyErrorModule {
@@ -11,13 +13,25 @@ export class NotifyErrorModule {
     return {
       module: NotifyErrorModule,
       imports: [
-        MongooseModule.forRoot(options.mongoUrl),
-        RepositoryModule
+        MongooseModule.forFeature([
+          {
+            name: ProcessError.name,
+            schema: ProcessErrorSchema,
+          },
+        ]),
       ],
       providers: [
-        // options.eventEmmiterProvider,
+        {
+          provide: EventEmitterPort,
+          useClass: options.eventEmitterAdapter,
+        },
+        ProcessErrorMongoRepository,
         NotifyError,
-        SaveError,
+        SaveNotifyError,
+      ],
+      exports: [
+        ProcessErrorMongoRepository,
+        SaveNotifyError,
       ]
     };
   }

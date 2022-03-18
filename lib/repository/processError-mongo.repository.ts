@@ -18,7 +18,8 @@ export class ProcessErrorMongoRepository
   }
 
   async save(processError: ProcessError): Promise<void> {
-    await this.processErrorModel.create(processError);
+    const createdError = new this.processErrorModel(processError);
+    await createdError.save();
   }
 
   async updateAsSent(processErrors: ProcessErrorDocument[]): Promise<void> {
@@ -32,4 +33,3 @@ export class ProcessErrorMongoRepository
     );
   }
 }
-
