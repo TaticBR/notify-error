@@ -1,4 +1,4 @@
 export interface NotifyErrorOptions {
-    eventEmitterAdapter: any;
+    eventEmitterAdapter?: any;
     mongoUrl: string;
 }

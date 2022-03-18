@@ -1,9 +1,10 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, Provider } from '@nestjs/common';
 import { ProcessError } from '../model/processError.entity';
 import { ProcessErrorMongoRepository } from '../repository/processError-mongo.repository';
+import { SaveErrorPort } from '../ports/saveError.port';
 
 @Injectable()
-export class SaveNotifyError {
+export class SaveNotifyError implements SaveErrorPort {
   private readonly logger = new Logger(SaveNotifyError.name);
 
   constructor(private processErrorRepository: ProcessErrorMongoRepository) {}
@@ -19,9 +20,14 @@ export class SaveNotifyError {
       );
 
       await this.processErrorRepository.save(processError);
-      this.logger.log('Process Error Saving');
+      this.logger.log('Process Error Saved');
     } catch (error) {
       this.logger.error(`Error while saving Process Error ${error.message}`);
     }
   }
 }
+
+export const SaveErrorProvider: Provider<SaveErrorPort> = {
+  provide: SaveErrorPort,
+  useClass: SaveNotifyError,
+};
