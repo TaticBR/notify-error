@@ -3,13 +3,13 @@ This project contains a code to save errors and send them by notification adapte
 # Installation
 
 ```bash
-npm install notify-error
+npm install @taticbr/notify-error
 ```
 
 or
 
 ```bash
-yarn add notify-error
+yarn add @taticbr/notify-error
 ```
 
 # How to use
@@ -26,7 +26,7 @@ import {
   EventEmitterAdapter,
   EventEmitterProvider,
 } from 'src/infrastructure/adapters/eventEmitter/';
-import { NotifyErrorModule } from 'notify-error';
+import { NotifyErrorModule } from '@taticbr/notify-error';
 
 @Module({
   imports: [
@@ -54,7 +54,7 @@ To save an error, you must import `SaveNotifyError` class, create it instance on
 
 ```typescript
 import { Injectable } from '@nestjs/common';
-import { SaveNotifyError } from 'notify-error';
+import { SaveNotifyError } from '@taticbr/notify-error';
 
 @Injectable()
 export class MyService {
