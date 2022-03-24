@@ -11,6 +11,7 @@ const connectionName = 'notifyErrorConnection';
 
 @Module({})
 export class NotifyErrorModule  {
+  // TODO: fix return type, changing to DynamicModule or similiar. It's returning abnormal error
   static forRoot(options?: NotifyErrorOptions): any {
     const notificationProviders = options.eventEmitterAdapter
       ? [
