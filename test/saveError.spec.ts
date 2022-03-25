@@ -19,7 +19,9 @@ describe(SaveNotifyError.name, () => {
     }).compile();
 
     service = module.get<SaveNotifyError>(SaveNotifyError);
-    repository = module.get<ProcessErrorRepositoryMock>(ProcessErrorMongoRepository);
+    repository = module.get<ProcessErrorRepositoryMock>(
+      ProcessErrorMongoRepository,
+    );
 
     repository.save = jest.fn();
   });
@@ -33,8 +35,8 @@ describe(SaveNotifyError.name, () => {
     expect(service).toBeDefined();
   });
 
-  it("should save an error", async () => {
-    const result = await service.save("error", "error");
+  it('should save an error', async () => {
+    const result = await service.save({ errorType: 'error', error: 'error' });
 
     expect(result).toBeUndefined();
     expect(repository.save).toHaveBeenCalledTimes(1);

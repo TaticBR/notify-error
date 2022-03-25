@@ -1,4 +1,5 @@
+import { ProcessError } from '../model/processError.entity';
+
 export abstract class SaveErrorPort {
-    save: (error: string, errorType?: string) => Promise<void>;
-  }
-  
+  save: (payload: Partial<ProcessError>) => Promise<void>;
+}

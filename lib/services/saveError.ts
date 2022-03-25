@@ -9,11 +9,11 @@ export class SaveNotifyError implements SaveErrorPort {
 
   constructor(private processErrorRepository: ProcessErrorMongoRepository) {}
 
-  async save(error: string, errorType?: string): Promise<void> {
-    this.logger.verbose(`Saving process error to send notification: ${error}`);
+  async save(payload: Partial<ProcessError>): Promise<void> {
+    this.logger.verbose(`Saving process error to send notification: ${payload.error}`);
 
     try {
-      const processError = new ProcessError(error, errorType);
+      const processError = new ProcessError(payload);
 
       this.logger.verbose(
         `Saving process error: ${JSON.stringify(processError)}`,
