@@ -6,8 +6,7 @@ import { NotifyErrorOptions } from './index';
 import { ProcessErrorMongoRepository } from './repository/processError-mongo.repository';
 import { ProcessError, ProcessErrorSchema } from './model/processError.entity';
 import { EventEmitterPort } from './ports/eventEmitter.port';
-
-const connectionName = 'notifyErrorConnection';
+import { connectionName } from './config';
 
 @Module({})
 export class NotifyErrorModule  {
