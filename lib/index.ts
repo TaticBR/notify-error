@@ -1,5 +1,6 @@
 export * from "./interfaces/notifyErrorOptions"
 export * from "./model/processError.entity"
 export * from "./ports/eventEmitter.port"
+export * from "./ports/saveError.port"
 export * from "./services/saveError"
 export * from "./notifyError.module"
