@@ -64,7 +64,7 @@ export class MyService {
     try {
       // ... execution ...
     } catch (error) {
-      this.saveError.save(error.message, 'pim');
+      this.saveError.save({ error: error.message, errorType: 'pim' });
     }
   }
 }
