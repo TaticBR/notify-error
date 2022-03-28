@@ -11,9 +11,10 @@ export class ProcessErrorMongoRepository {
   processErrorSchema: Schema<ProcessErrorDocument>;
   processErrorModel: Model<ProcessError>;
 
-  constructor(mongoUrl: string) {
-    console.log(mongoUrl);
-    this.connectMongo(mongoUrl);
+  constructor(mongoUrl?: string) {
+    if (mongoUrl) {
+      this.connectMongo(mongoUrl);
+    }
   }
 
   async connectMongo(mongoUrl: string) {
@@ -27,6 +28,8 @@ export class ProcessErrorMongoRepository {
   }
 
   async findPending(): Promise<ProcessErrorDocument[]> {
+    if(!this.processErrorSchema) { return [] }
+
     const result = await this.processErrorModel.find({
       notificationSent: false,
     });
@@ -34,12 +37,16 @@ export class ProcessErrorMongoRepository {
   }
 
   async save(processError: ProcessError): Promise<void> {
+    if(!this.processErrorSchema) { return }
+
     const createdError = new this.processErrorModel(processError);
 
     await createdError.save();
   }
 
   async updateAsSent(processErrors: ProcessErrorDocument[]): Promise<void> {
+    if(!this.processErrorSchema) { return }
+
     await Promise.all(
       processErrors.map((processError) => {
         processError.notificationSent = true;

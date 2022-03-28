@@ -26,18 +26,16 @@ export class NotifyErrorModule {
       },
     };
 
+    const providers = [
+      ...notificationProviders,
+      repositoryFactory,
+      SaveNotifyError,
+    ];
+
     return {
       module: NotifyErrorModule,
-      providers: [
-        ...notificationProviders,
-        repositoryFactory,
-        SaveNotifyError,
-      ],
-      exports: [
-        ...notificationProviders,
-        ProcessErrorMongoRepository,
-        SaveNotifyError,
-      ],
+      providers,
+      exports: providers,
     };
   }
 }

@@ -13,7 +13,7 @@ export class NotifyError {
     private readonly eventEmitter: EventEmitterPort,
   ) {}
 
-  @Cron(process.env.VERIFY_ERROR_SCHEDULE_CRON || CronExpression.EVERY_HOUR)
+  @Cron(process.env.VERIFY_ERROR_SCHEDULE_CRON || CronExpression.EVERY_10_SECONDS)
   async notify(): Promise<void> {
     this.logger.verbose(
       `Notify Load Pim Error started to sending notification`,
