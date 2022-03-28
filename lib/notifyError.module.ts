@@ -7,8 +7,9 @@ import { EventEmitterPort } from './ports/eventEmitter.port';
 
 @Module({})
 export class NotifyErrorModule {
-  // TODO: fix return type, changing to DynamicModule or similiar. It's returning abnormal error
-  static forRoot(options?: NotifyErrorOptions): any {
+  static forRoot(
+    options?: NotifyErrorOptions,
+  ) {
     const notificationProviders = options.eventEmitterAdapter
       ? [
           {
