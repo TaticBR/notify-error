@@ -1,6 +1,6 @@
 {
-  "name": "@taticbr/notify-error",
-  "author": "TaticBR",
+  "name": "taticbr-notify-error",
+  "author": "tatic",
   "version": "1.0.0",
   "license": "MIT",
   "main": "dist/index.js",
