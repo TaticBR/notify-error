@@ -39,14 +39,14 @@ export class NotifyError {
             ...previous,
             {
               errorType: current.errorType,
-              errors: [current.error],
+              errors: [current.getErrorMessage()],
             },
           ];
         }
         const currentList = previous.find(
           (item) => item.errorType === current.errorType,
         );
-        currentList.errors = [...currentList.errors, current.error];
+        currentList.errors = [...currentList.errors, current.getErrorMessage()];
 
         return previous;
       },
@@ -55,15 +55,17 @@ export class NotifyError {
 
     this.logger.log('Sending notification');
     try {
-      await Promise.all(errorsGroupedByType.map(async (error: GroupedError) => {
-        await this.eventEmitter.request(
-          process.env.EVENT_EMITTER_TOPIC || 'NotifyLoadPimDelayTopic',
-          {
-            errorType: error.errorType,
-            error: error.errors,
-          },
-        );
-      }));
+      await Promise.all(
+        errorsGroupedByType.map(async (error: GroupedError) => {
+          await this.eventEmitter.request(
+            process.env.EVENT_EMITTER_TOPIC || 'NotifyLoadPimDelayTopic',
+            {
+              errorType: error.errorType,
+              error: error.errors,
+            },
+          );
+        }),
+      );
 
       await this.processErrorRepository.updateAsSent(pendingErrors);
       this.logger.log('Notification sent');

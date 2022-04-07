@@ -37,6 +37,23 @@ export class ProcessError {
       createdAt: { type: Date, required: false },
     });
   }
+
+  getErrorMessage() {
+    return `${this.getCreatedAtFormated()} - ${this.error}`;
+  }
+
+  getCreatedAtFormated() {
+    const createdAt = new Date(this.createdAt);
+    
+    const day = createdAt.getDate();
+    const month = createdAt.getMonth() + 1;
+    const year = createdAt.getFullYear();
+    const hour = createdAt.getHours();
+    const minute = createdAt.getMinutes();
+    const second = createdAt.getSeconds();
+
+    return `${year}/${month}/${day} ${hour}:${minute}:${second}`;
+  }
 }
 
 export type ProcessErrorDocument = ProcessError & Document;
