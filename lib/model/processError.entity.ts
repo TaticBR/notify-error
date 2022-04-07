@@ -29,13 +29,22 @@ export class ProcessError {
   createdAt?: Date;
 
   getSchema() {
-    return new Schema({
+    const schema = new Schema({
       error: { type: String, required: true },
       errorType: { type: String, required: false },
       notificationSent: { type: Boolean, required: false },
       shouldSendNotification: { type: Boolean, required: false },
       createdAt: { type: Date, required: false },
     });
+    
+    const proto = ProcessError.prototype;
+    for (const name of Object.getOwnPropertyNames(proto)) {
+      if (name != 'constructor' && typeof proto[name] === 'function') {
+        schema.methods[name] = proto[name];
+      }
+    }
+
+    return schema;
   }
 
   getErrorMessage() {

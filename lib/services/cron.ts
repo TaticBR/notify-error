@@ -4,6 +4,8 @@ import { EventEmitterPort } from '../ports/eventEmitter.port';
 import { ProcessErrorMongoRepository } from '../repository/processError-mongo.repository';
 import { GroupedError } from '../interfaces/groupedError';
 
+
+const CRON_TIME = process.env.VERIFY_ERROR_SCHEDULE_CRON || CronExpression.EVERY_HOUR;
 @Injectable()
 export class NotifyError {
   private readonly logger = new Logger(NotifyError.name);
@@ -11,9 +13,11 @@ export class NotifyError {
   constructor(
     private readonly processErrorRepository: ProcessErrorMongoRepository,
     private readonly eventEmitter: EventEmitterPort,
-  ) {}
+  ) {
+    this.logger.log(`Notify error running based on cron: ${CRON_TIME}`);
+  }
 
-  @Cron(process.env.VERIFY_ERROR_SCHEDULE_CRON || CronExpression.EVERY_HOUR)
+  @Cron(CRON_TIME)
   async notify(): Promise<void> {
     this.logger.verbose(
       `Notify Load Pim Error started to sending notification`,
