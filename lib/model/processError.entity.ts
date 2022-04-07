@@ -3,6 +3,12 @@ import { Document, Schema } from 'mongoose';
 export const processErrorCollectionName =
   process.env.PROCESS_ERROR_COLLECTION_NAME || 'processError';
 
+const padTwo = (num: string | number) => {
+  num = num.toString();
+  while (num.length < 2) num = '0' + num;
+  return num;
+}
+
 export class ProcessError {
   constructor(payload?: Partial<ProcessError>) {
     if (payload) {
@@ -36,7 +42,7 @@ export class ProcessError {
       shouldSendNotification: { type: Boolean, required: false },
       createdAt: { type: Date, required: false },
     });
-    
+
     const proto = ProcessError.prototype;
     for (const name of Object.getOwnPropertyNames(proto)) {
       if (name != 'constructor' && typeof proto[name] === 'function') {
@@ -53,13 +59,13 @@ export class ProcessError {
 
   getCreatedAtFormated() {
     const createdAt = new Date(this.createdAt);
-    
+
     const day = createdAt.getDate();
-    const month = createdAt.getMonth() + 1;
-    const year = createdAt.getFullYear();
-    const hour = createdAt.getHours();
-    const minute = createdAt.getMinutes();
-    const second = createdAt.getSeconds();
+    const month = padTwo(createdAt.getMonth() + 1);
+    const year = padTwo(createdAt.getFullYear());
+    const hour = padTwo(createdAt.getHours());
+    const minute = padTwo(createdAt.getMinutes());
+    const second = padTwo(createdAt.getSeconds());
 
     return `${year}/${month}/${day} ${hour}:${minute}:${second}`;
   }
