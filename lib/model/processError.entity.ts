@@ -14,6 +14,7 @@ export class ProcessError {
       this.error = error;
       this.notificationSent = shouldSendNotification || false;
       this.shouldSendNotification = shouldSendNotification;
+      this.createdAt = new Date(Date.now());
     }
   }
 
@@ -25,12 +26,15 @@ export class ProcessError {
 
   shouldSendNotification?: boolean;
 
+  createdAt?: Date;
+
   getSchema() {
     return new Schema({
       error: { type: String, required: true },
       errorType: { type: String, required: false },
       notificationSent: { type: Boolean, required: false },
       shouldSendNotification: { type: Boolean, required: false },
+      createdAt: { type: Date, required: false },
     });
   }
 }
