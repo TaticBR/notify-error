@@ -12,12 +12,13 @@ const padTwo = (num: string | number) => {
 export class ProcessError {
   constructor(payload?: Partial<ProcessError>) {
     if (payload) {
-      const { error, errorType, shouldSendNotification } = payload;
+      const { error, errorType, shouldSendNotification, errorData } = payload;
       if (errorType) {
         this.errorType = errorType;
       }
 
       this.error = error;
+      this.errorData = errorData;
       this.notificationSent = shouldSendNotification || false;
       this.shouldSendNotification = shouldSendNotification;
       this.createdAt = new Date(Date.now());
@@ -25,6 +26,8 @@ export class ProcessError {
   }
 
   error: string;
+
+  errorData: string; // should be json data
 
   errorType?: string;
 
