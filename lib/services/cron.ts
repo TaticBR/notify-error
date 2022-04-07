@@ -57,7 +57,7 @@ export class NotifyError {
     try {
       await Promise.all(
         errorsGroupedByType.map(async (error: GroupedError) => {
-          await this.eventEmitter.request(
+          return this.eventEmitter.request(
             process.env.EVENT_EMITTER_TOPIC || 'NotifyLoadPimDelayTopic',
             {
               errorType: error.errorType,
