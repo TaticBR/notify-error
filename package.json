@@ -1,7 +1,7 @@
 {
   "name": "taticbr-notify-error",
   "author": "tatic",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/notify-error.esm.js",

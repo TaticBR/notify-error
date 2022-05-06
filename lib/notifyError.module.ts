@@ -20,6 +20,8 @@ export class NotifyErrorModule {
         ]
       : [];
 
+    const extraImports = options.imports ? options.imports : [];
+
     const repositoryFactory = {
       provide: ProcessErrorMongoRepository,
       useFactory: () => {
@@ -37,6 +39,7 @@ export class NotifyErrorModule {
       module: NotifyErrorModule,
       providers,
       exports: providers,
+      import: extraImports,
     };
   }
 }
