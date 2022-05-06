@@ -39,7 +39,7 @@ export class NotifyErrorModule {
       module: NotifyErrorModule,
       providers,
       exports: providers,
-      import: extraImports,
+      imports: extraImports,
     };
   }
 }
