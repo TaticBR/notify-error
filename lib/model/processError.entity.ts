@@ -40,6 +40,7 @@ export class ProcessError {
   getSchema() {
     const schema = new Schema({
       error: { type: String, required: true },
+      errorData: { type: String, required: true },
       errorType: { type: String, required: false },
       notificationSent: { type: Boolean, required: false },
       shouldSendNotification: { type: Boolean, required: false },
